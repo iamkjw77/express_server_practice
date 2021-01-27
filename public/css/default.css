@@ -1,0 +1,80 @@
+/* 셀렉션 스타일 */
+::-moz-selection {
+  /* 파이어폭스를 위한 -moz */
+  background: #d65782;
+  color: #ffffff;
+}
+::selection {
+  background: #d65782;
+  color: #ffffff;
+}
+
+html {
+  font-size: 10px;
+  overflow-y: visible;
+  /* 세로스크롤바 보이게 설정 */
+}
+
+/* 기본 박스사이징 설정 */
+body,
+body *,
+body::before,
+body::after,
+body *::before,
+body *::after {
+  box-sizing: border-box;
+}
+
+/* 탭 하이라이트 색상 */
+body * {
+  -webkit-tap-highlight-color: rgba(255, 255, 200, 0.3);
+  tap-highlight-color: rgba(255, 255, 200, 0.3);
+  /* 터치를 위해 색상을 줌 */
+}
+
+/* 본문 기본 폰트, 글자 크기, 굵기, 배경 색상 지정 */
+body {
+  font-family: 'Spoqa Han Sans', 'Sans-serif';
+  font-size: 1.6rem;
+  font-weight: 400;
+  background-color: #3c424a;
+  color: #e1eaf2;
+}
+
+/* 포커스 시 아웃라인 커스텀 디자인 */
+:focus {
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px rgba(214, 87, 130, 0.9);
+}
+
+/* 버튼 요소의 커서 및 테두리 제거 */
+button {
+  cursor: pointer;
+  border: none;
+}
+
+/* 링크 요소의 밑줄 및 글자 색상 재 정의 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 조립 코드 */
+
+.a11y-hidden {
+  overflow: hidden;
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  clip-path: polygon(0 0, 0 0, 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.reset-list {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}

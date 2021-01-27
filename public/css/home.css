@@ -1,0 +1,143 @@
+/* @font-face {
+  font-family: '함초롱바탕';
+  src: url(../font/HANBatang.ttf) format('truetype');
+  font-style: normal;
+  font-weight: normal; 
+} */
+
+/* 레이아웃 */
+.container {
+  width: 768px;
+  margin: 0 auto;
+  border: 1px solid #fff;
+}
+
+/* 날짜 */
+.date {
+  margin-top: 30px;
+  font-family: '함초롱바탕', sans-serif;
+  text-align: center;
+}
+
+.date__day {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.date__date {
+  color: #727579;
+}
+
+/* todo form */
+.todo {
+  width: 420px;
+  /* background: green; */
+  margin: 30px auto;
+}
+
+.todo__form {
+  position: relative;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.form__input {
+  width: 350px;
+  background-color: #343a40;
+  border: 0;
+  font-size: 1.8rem;
+  padding: 10px;
+  margin-right: 5px;
+  color: #e1eaf2;
+  vertical-align: middle;
+}
+.todo__form label[for=todo-input] {
+  position: absolute;
+  left: 30px;
+  top: 9px;
+  color: #7b8188;
+}
+
+.form__btn {
+  background-color: #951846;
+  color: #e1eaf2;
+  border-radius: 15px;
+  padding: 13px;
+  vertical-align: middle;
+}
+
+/* todo-button */
+.todos-btn__list {
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: 15px;
+  text-indent: 15px;
+}
+
+.todos-btn__list li.active button{
+  background: rgb(129, 78, 212);
+}
+
+.todos-btn__list button {
+  background: rgb(86, 50, 184);
+  color: #e1eaf2;
+  border-radius: 15px;
+  padding: 10px 15px;
+  margin-right: 15px;
+  font-size: 1.5rem;
+}
+
+/* todo-list */
+.todo__todos-list{
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.todo__todos-list li{
+  padding: 20px;
+  border-bottom: 1px solid #343940;
+  background: #50565d;
+}
+
+.todo__todos-list label {
+  margin: 0 15px;
+}
+
+.checked {
+  text-decoration: line-through 3px #951846;
+}
+
+.todo__todos-list button {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  vertical-align: middle;
+  float: right;
+  background: #50565d;
+  border: 1px solid #343a40;
+  color: #343a40;
+  line-height: 0;
+}
+
+/* 옵션 버튼 */
+.todo__complete-all { 
+  display: inline-block;
+}
+.todo__complete-all label {
+  margin-left: 5px;
+  font-size: 1.8rem;
+}
+
+.todo__clear-complete { 
+  float: right;
+}
+
+.todo__clear-complete button {
+  background: rgb(49, 147, 212);
+  color: #e1eaf2;
+  border-radius: 15px;
+  padding: 10px;
+  margin-right: 5px;
+}
+
