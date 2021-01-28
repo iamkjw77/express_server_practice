@@ -1,3 +1,5 @@
+import ajax from './xhr.js';
+
 // 날짜
 const $day = document.querySelector('.date__day');
 const $date = document.querySelector('.date__date');
@@ -41,45 +43,38 @@ const render = () => {
   $remain_todos.textContent = countLeft;
 };
 
-const fetchTodos = () => {
-  // TODO: 서버로부터 todos 데이터를 취득(잠정처리)
-  // todos = [
-  //   { id: 1, content: 'HTML', completed: true },
-  //   { id: 2, content: 'CSS', completed: false },
-  //   { id: 3, content: 'JS', completed: true },
-  // ];
-
-  todos = [...todos].sort((todo1, todo2) => todo2.id - todo1.id);
+const setTodos = _todos => {
+  todos = _todos;
   render();
+};
+
+const fetchTodos = () => {
+  ajax.get('/todos', setTodos);
 };
 
 const addTodo = (() => {
   const generateId = () => Math.max(...todos.map(todo => todo.id), 0) + 1;
   
   return content => {
-    todos = [{ id: generateId(), content, completed: false }, ...todos];
-    render();
+    ajax.post('/todos', { id: generateId(), content, completed: false }, setTodos);
   }
 })();
 
 const removeTodo = id => {
-  todos = todos.filter(todo => todo.id !== id);
-  render();
+  ajax.delete(`todo/${id}`, setTodos);
 };
 
 const toggleTodo = id => {
-  todos = todos.map(todo => todo.id === id ? {...todo, completed: !todo.completed } : todo);
-  render();
+  const completed = !todos.find(item => item.id === id).completed;
+  ajax.patch(`todos/${id}`, { completed }, setTodos);
 };
 
-const toggleComplete = () => {
-  todos = todos.map(todo => ({ ...todo, completed: $allDone.checked }));
-  render();
+const toggleComplete = completed => {
+  ajax.patch('/todos', { completed }, setTodos);
 };
 
 const removeCompletedAll = () => {
-  todos = todos.filter(todo => !todo.completed);
-  render();
+  ajax.delete('/todos/completed', setTodos);
 }
 
 const changeBtn = id => {
@@ -114,7 +109,9 @@ $ul.onchange = e => {
   toggleTodo(+e.target.parentNode.id);
 }
 
-$allDone.onchange = toggleComplete;
+$allDone.onchange = e => {
+  toggleComplete(e.target.checked);
+};
 
 $clear_done_btn.onclick = () => {
   removeCompletedAll();
