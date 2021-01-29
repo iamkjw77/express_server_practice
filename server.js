@@ -28,7 +28,7 @@ app.use(cors());
 // 루트 디렉토리 설정(public을 자동으로 찾아가도록 설정)
 app.use(express.static('public'))
 
-// setRequestHeader 내용을 받아준다는 코드를 작성해야 post 요청이 된다.
+// json으로 이루어진 Request body 파싱을 위해 설정
 app.use(express.json());
 
 // app.get, app.post, app.patch, app.delete 등을 라우터라고 한다.
