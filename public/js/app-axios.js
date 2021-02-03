@@ -1,5 +1,3 @@
-import ajax from './promise.js';
-
 // 날짜
 const $day = document.querySelector('.date__day');
 const $date = document.querySelector('.date__date');
@@ -50,9 +48,8 @@ const setTodos = _todos => {
 
 const fetchTodos = () => {
   // ajax.get('/todos', setTodos);
-
-  ajax.get('/todos')
-    .then(setTodos)
+  axios.get('/todos')
+    .then(({ data: _todos }) => setTodos(_todos))
     .catch(console.error);
 };
 
@@ -60,44 +57,35 @@ const addTodo = (() => {
   const generateId = () => Math.max(...todos.map(todo => todo.id), 0) + 1;
   
   return content => {
-    // ajax.post('/todos', { id: generateId(), content, completed: false }, setTodos);
-
-    ajax.post('/todos', { id: generateId(), content, completed: false })
-      .then(setTodos)
+    axios.post('/todos', { id: generateId(), content, completed: false })
+      .then(({ data: _todos }) => setTodos(_todos))
       .catch(console.error);
   }
 })();
 
 const removeTodo = id => {
-  // ajax.delete(`todo/${id}`, setTodos);
-
-  ajax.delete(`/todos/${id}`)
-    .then(setTodos)
+  axios.delete(`/todos/${id}`)
+    .then(({ data: _todos }) => setTodos(_todos))
     .catch(console.error);
 };
 
 const toggleTodo = id => {
   const completed = !todos.find(item => item.id === id).completed;
-  // ajax.patch(`todos/${id}`, { completed }, setTodos);
-
-  ajax.patch(`/todos/${id}`, { completed })
-    .then(setTodos)
+  axios.patch(`/todos/${id}`, { completed })
+    .then(({ data: _todos }) => setTodos(_todos))
     .catch(console.error);
 };
 
 const toggleComplete = completed => {
-  // ajax.patch('/todos', { completed }, setTodos);
-
-  ajax.patch('/todos', { completed })
-    .then(setTodos)
+  axios.patch('/todos', { completed })
+    .then(({ data: _todos }) => setTodos(_todos))
     .catch(console.error);
 };
 
 const removeCompletedAll = () => {
   // ajax.delete('/todos/completed', setTodos);
-
-  ajax.delete('/todos/completed')
-    .then(setTodos)
+  axios.delete('/todos/completed')
+    .then(({ data: _todos }) => setTodos(_todos))
     .catch(console.error);
 }
 
