@@ -1,4 +1,4 @@
-import ajax from './fetch.js'
+import ajax from './API/promise.js';
 
 // 날짜
 const $day = document.querySelector('.date__day');
@@ -48,69 +48,46 @@ const setTodos = _todos => {
   render();
 };
 
-const fetchTodos = async () => {
-  try {
-    const res = await ajax.get('/todos');
-    const _todos = await res.json();
-    setTodos(_todos);
-  } catch(err) {
-    console.log(err);
-  }
+const fetchTodos = () => {
+  ajax.get('/todos')
+    .then(setTodos)
+    .catch(console.error);
 };
 
 const addTodo = (() => {
   const generateId = () => Math.max(...todos.map(todo => todo.id), 0) + 1;
   
-  return async content => {
-    try {
-      const res = await ajax.post('/todos', { id: generateId(), content, completed: false });
-      const _todos = await res.json();
-      setTodos(_todos);
-    } catch(err) {
-      console.error(err);
-    }
+  return content => {
+    ajax.post('/todos', { id: generateId(), content, completed: false })
+      .then(setTodos)
+      .catch(console.error);
   }
 })();
 
-const removeTodo = async id => {
-  try {
-    const res = await ajax.delete(`/todos/${id}`);
-    const _todos = await res.json();
-    setTodos(_todos);
-  } catch(err) {
-    console.error(err);
-  }
+const removeTodo = id => {
+  ajax.delete(`/todos/${id}`)
+    .then(setTodos)
+    .catch(console.error);
 };
 
-const toggleTodo = async id => {
+const toggleTodo = id => {
   const completed = !todos.find(item => item.id === id).completed;
-  try {
-    const res = await ajax.patch(`/todos/${id}`, { completed });
-    const _todos = await res.json();
-    setTodos(_todos);
-  } catch(err) {
-    console.error(err);
-  }
+
+  ajax.patch(`/todos/${id}`, { completed })
+    .then(setTodos)
+    .catch(console.error);
 };
 
-const toggleComplete = async completed => {
-  try {
-    const res = await ajax.patch('/todos', { completed });
-    const _todos = await res.json();
-    setTodos(_todos);
-  } catch(err) {
-    console.error(err);
-  }
+const toggleComplete = completed => {
+  ajax.patch('/todos', { completed })
+    .then(setTodos)
+    .catch(console.error);
 };
 
-const removeCompletedAll = async () => {
-  try {
-    const res = await ajax.delete('/todos/completed');
-    const _todos = await res.json();
-    setTodos(_todos);
-  } catch(err) {
-    console.error(err);
-  }
+const removeCompletedAll = () => {
+  ajax.delete('/todos/completed')
+    .then(setTodos)
+    .catch(console.error);
 }
 
 const changeBtn = id => {

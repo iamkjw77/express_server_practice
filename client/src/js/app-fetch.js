@@ -1,4 +1,4 @@
-import ajax from './promise.js';
+import ajax from './API/fetch.js'
 
 // 날짜
 const $day = document.querySelector('.date__day');
@@ -50,6 +50,7 @@ const setTodos = _todos => {
 
 const fetchTodos = () => {
   ajax.get('/todos')
+    .then(response => response.json())
     .then(setTodos)
     .catch(console.error);
 };
@@ -59,6 +60,7 @@ const addTodo = (() => {
   
   return content => {
     ajax.post('/todos', { id: generateId(), content, completed: false })
+      .then(response => response.json())
       .then(setTodos)
       .catch(console.error);
   }
@@ -66,26 +68,29 @@ const addTodo = (() => {
 
 const removeTodo = id => {
   ajax.delete(`/todos/${id}`)
+    .then(response => response.json())
     .then(setTodos)
     .catch(console.error);
 };
 
 const toggleTodo = id => {
   const completed = !todos.find(item => item.id === id).completed;
-
   ajax.patch(`/todos/${id}`, { completed })
+    .then(response => response.json())
     .then(setTodos)
     .catch(console.error);
 };
 
 const toggleComplete = completed => {
   ajax.patch('/todos', { completed })
+    .then(response => response.json())
     .then(setTodos)
     .catch(console.error);
 };
 
 const removeCompletedAll = () => {
   ajax.delete('/todos/completed')
+    .then(response => response.json())
     .then(setTodos)
     .catch(console.error);
 }

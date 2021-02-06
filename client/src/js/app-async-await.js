@@ -1,5 +1,3 @@
-import ajax from './fetch.js'
-
 // 날짜
 const $day = document.querySelector('.date__day');
 const $date = document.querySelector('.date__date');
@@ -48,51 +46,69 @@ const setTodos = _todos => {
   render();
 };
 
-const fetchTodos = () => {
-  ajax.get('/todos')
-    .then(response => response.json())
-    .then(setTodos)
-    .catch(console.error);
+const fetchTodos = async () => {
+  try {
+    const res = await axios.get('/todos');
+    const _todos = await res.data;
+    setTodos(_todos);
+  } catch(err) {
+    console.log(err);
+  }
 };
 
 const addTodo = (() => {
   const generateId = () => Math.max(...todos.map(todo => todo.id), 0) + 1;
   
-  return content => {
-    ajax.post('/todos', { id: generateId(), content, completed: false })
-      .then(response => response.json())
-      .then(setTodos)
-      .catch(console.error);
+  return async content => {
+    try {
+      const res = await axios.post('/todos', { id: generateId(), content, completed: false });
+      const _todos = await res.data;
+      setTodos(_todos);
+    } catch(err) {
+      console.error(err);
+    }
   }
 })();
 
-const removeTodo = id => {
-  ajax.delete(`/todos/${id}`)
-    .then(response => response.json())
-    .then(setTodos)
-    .catch(console.error);
+const removeTodo = async id => {
+  try {
+    const res = await axios.delete(`/todos/${id}`);
+    const _todos = await res.data;
+    setTodos(_todos);
+  } catch(err) {
+    console.error(err);
+  }
 };
 
-const toggleTodo = id => {
+const toggleTodo = async id => {
   const completed = !todos.find(item => item.id === id).completed;
-  ajax.patch(`/todos/${id}`, { completed })
-    .then(response => response.json())
-    .then(setTodos)
-    .catch(console.error);
+  try {
+    const res = await axios.patch(`/todos/${id}`, { completed });
+    const _todos = await res.data;
+    setTodos(_todos);
+  } catch(err) {
+    console.error(err);
+  }
 };
 
-const toggleComplete = completed => {
-  ajax.patch('/todos', { completed })
-    .then(response => response.json())
-    .then(setTodos)
-    .catch(console.error);
+const toggleComplete = async completed => {
+  try {
+    const res = await axios.patch('/todos', { completed });
+    const _todos = await res.data;
+    setTodos(_todos);
+  } catch(err) {
+    console.error(err);
+  }
 };
 
-const removeCompletedAll = () => {
-  ajax.delete('/todos/completed')
-    .then(response => response.json())
-    .then(setTodos)
-    .catch(console.error);
+const removeCompletedAll = async () => {
+  try {
+    const res = await axios.delete('/todos/completed');
+    const _todos = await res.data;
+    setTodos(_todos);
+  } catch(err) {
+    console.error(err);
+  }
 }
 
 const changeBtn = id => {

@@ -1,4 +1,4 @@
-import ajax from './xhr.js';
+import ajax from './API/xhr.js';
 
 // 날짜
 const $day = document.querySelector('.date__day');
